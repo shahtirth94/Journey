@@ -1,0 +1,135 @@
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * 
+ */
+
+/**
+ * @author Tirth Shah
+ *
+ */
+public class Location 
+
+{
+	private String locationName;
+	private String monsterName;
+	
+	public Location(String locationName, String monsterName)
+	{
+		locationName = this.locationName;
+		monsterName = this.monsterName;
+	}
+	
+	public String getLocationName() 
+	{
+		return locationName;
+	}
+
+
+
+	public void setLocationName(String locationName) 
+	{
+		this.locationName = locationName;
+	}
+
+
+
+	public String getMonsterName() 
+	{
+		return monsterName;
+	}
+
+
+
+	public void setMonsterName(String monsterName) 
+	{
+		this.monsterName = monsterName;
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) 
+	{
+		Random random = new Random();
+		
+		Location Classroom = new Location("Classroom", "Evil Teacher");
+		Location Restroom = new Location("Restroom", "Zombified Janitor");
+		Location OvalOffice = new Location("Oval Office", "Secret Service agent");
+		Location Stadium = new Location("Stadium", "Titan");
+		Location Tundra = new Location("Tundra", "Werewolf");
+		Location Prison = new Location("Prison", "Murderer");
+		Location Forest = new Location("Forest", "Grizzly bear");
+		Location Desert = new Location("Desert", "Chupacabra");
+		Location Park = new Location("Park", "Pit bull");
+		Location Cave = new Location("Cave", "Dragon");
+		Location Tunnel = new Location("Tunnel", "Giant rat");
+		Location Castle = new Location("Castle", "Dracula");
+		Location Ship = new Location("Ship", "Pirate");
+		Location Airport = new Location("Airport", "TSA agent");
+		Location SharkTank = new Location("Shark Tank", "Mark Cuban");
+		Location EiffelTower = new Location("Eiffel Tower", "Koechlin");
+		Location MountEverest = new Location("MountEverest", "Tenzing Norgay");
+		Location Museum = new Location("Museum", "T-rex");
+		Location Pyramid = new Location("Pyramid", "Mummy");
+		Location Temple = new Location("Temple", "Giant Serpent");
+		Location Railroad = new Location("Railroad", "Runaway train");
+		Location Moon = new Location("Moon", "Zombified Neil Armstrong");
+		Location Saturn = new Location("Saturn", "Cronos");
+		Location Mars = new Location("Mars", "Alien");
+		Location GrandCanyon = new Location("Grand Canyon", "Coyote");
+		Location AmazonRiver = new Location("Amazon River", "Talking piranhas");
+		Location Village = new Location("Village", "Headhunters");
+		Location Warehouse = new Location("Warehouse", "Giant spider");
+		Location Graveyard = new Location("Graveyard", "Zombie");
+		Location Beach = new Location("Beach", "Manshark");
+		
+		ArrayList<Location> locationList = new ArrayList<Location>();
+		locationList.add(Classroom);
+		locationList.add(Restroom);
+		locationList.add(OvalOffice);
+		locationList.add(Stadium);
+		locationList.add(Tundra);
+		locationList.add(Prison);
+		locationList.add(Forest);
+		locationList.add(Desert);
+		locationList.add(Park);
+		locationList.add(Cave);
+		locationList.add(Tunnel);
+		locationList.add(Castle);
+		locationList.add(Ship);
+		locationList.add(Airport);
+		locationList.add(SharkTank);
+		locationList.add(EiffelTower);
+		locationList.add(MountEverest);
+		locationList.add(Museum);
+		locationList.add(Pyramid);
+		locationList.add(Temple);
+		locationList.add(Railroad);
+		locationList.add(Moon);
+		locationList.add(Saturn);
+		locationList.add(Mars);
+		locationList.add(GrandCanyon);
+		locationList.add(AmazonRiver);
+		locationList.add(Village);
+		locationList.add(Warehouse);
+		locationList.add(Graveyard);
+		locationList.add(Beach);
+		
+		int position;
+		position = random.nextInt(locationList.size());
+		System.out.println(position);
+		
+		System.out.println("Random location selected: " + locationList.get(position).getLocationName());
+		
+	}
+	
+	public String present3Rooms()
+	{
+		String result = "";
+		
+		return result;
+	}
+
+}
