@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
-
-/**
- * 
- */
+import java.util.Scanner; 
 
 /**
  * @author Tirth Shah
@@ -15,10 +12,10 @@ public class Location
 	private String locationName;
 	private String monsterName;
 	
-	public Location(String locationName, String monsterName)
+	public Location(String aLocationName, String aMonsterName)
 	{
-		locationName = this.locationName;
-		monsterName = this.monsterName;
+		locationName = aLocationName;
+		monsterName = aMonsterName;
 	}
 	
 	public String getLocationName() 
@@ -26,26 +23,22 @@ public class Location
 		return locationName;
 	}
 
-
-
 	public void setLocationName(String locationName) 
 	{
 		this.locationName = locationName;
 	}
-
-
 
 	public String getMonsterName() 
 	{
 		return monsterName;
 	}
 
-
-
 	public void setMonsterName(String monsterName) 
 	{
 		this.monsterName = monsterName;
 	}
+	
+	
 
 	/**
 	 * @param args
@@ -117,12 +110,54 @@ public class Location
 		locationList.add(Graveyard);
 		locationList.add(Beach);
 		
-		int position;
-		position = random.nextInt(locationList.size());
-		System.out.println(position);
+		int position1 = random.nextInt(locationList.size());
+		int position2 = random.nextInt(locationList.size());
+		int position3 = random.nextInt(locationList.size());
+		while(position1==position2 || position1==position3 || position2==position3)
+		{
+			position1 = random.nextInt(locationList.size());
+			position2 = random.nextInt(locationList.size());
+			position3 = random.nextInt(locationList.size());
+		}
 		
-		System.out.println("Random location selected: " + locationList.get(position).getLocationName());
+		System.out.println("Pick your portal:\n" + position1 + ". " + locationList.get(position1).getLocationName() +"\n"
+				+ position2 + ". " + locationList.get(position2).getLocationName() + "\n"
+				+ position3 + ". " + locationList.get(position3).getLocationName());
 		
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter the location number: ");
+		String line = input.nextLine();
+		String clearLine = line.trim();
+		boolean result = false;
+		int num = -1;
+		while(!result)
+		{
+			try
+			{
+				num = Integer.parseInt(clearLine);
+			}
+			catch(Exception exc)
+			{
+			}
+			
+			if((position1== num || (position2==num) || (position3==num)))
+			{
+				result = true;
+			}
+			else
+			{
+				System.out.println("Bad input (" + line + ") Please retry:");
+				line = input.nextLine();
+				clearLine = line.trim();
+			}
+		}
+	
+		String location = locationList.get(num).getLocationName();
+		String monster = locationList.get(num).getMonsterName();
+		System.out.println("WELCOME! \nYou have entered the " + location);
+		System.out.println("The monster at this location is a " + monster);
+		System.out.println(monster + " asks: ");
+		// Now, call Question class's method getRandomQuestion() to display random question to player.
 	}
 	
 	public String present3Rooms()
