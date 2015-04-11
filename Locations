@@ -13,8 +13,7 @@ import java.util.Scanner;
 *
 * Purpose: To create 30 Location instances, read user input and let user pick a location; expects input from Question class.
 */
-public class Location 
-
+public class Location
 {
 	private String locationName;
 	private String monsterName;
@@ -73,7 +72,6 @@ public class Location
 	{
 		ArrayList<Integer> usedLocationsList = new ArrayList<Integer>();
 		Random random = new Random();
-		
 		
 		Location Classroom = new Location("Classroom", "Evil Teacher");
 		Location Restroom = new Location("Restroom", "Zombified Janitor");
@@ -141,8 +139,8 @@ public class Location
 		int position1 = random.nextInt(locationList.size());
 		int position2 = random.nextInt(locationList.size());
 		int position3 = random.nextInt(locationList.size());
-		while(position1==position2 || position1==position3 || position2==position3 || usedLocationsList.contains(position1)
-				|| usedLocationsList.contains(position2) || usedLocationsList.contains(position3))
+		while(position1==position2 || position1==position3 || position2==position3 || usedLocationsList.
+				contains(position1) || usedLocationsList.contains(position2) || usedLocationsList.contains(position3))
 		{
 			position1 = random.nextInt(locationList.size());
 			position2 = random.nextInt(locationList.size());
@@ -175,20 +173,18 @@ public class Location
 			}
 			else
 			{
-				System.out.println("Bad input (" + line + ") Please retry:");
+				System.out.println("Bad input (" + line + ") \nEnter one of the location numbers listed:");
 				line = input.nextLine();
 				clearLine = line.trim();
 			}
 		}
 		
-		
 		usedLocationsList.add(num);
-		
 		String location = locationList.get(num).getLocationName();
 		String monster = locationList.get(num).getMonsterName();
-		System.out.println("WELCOME! \nYou have entered the " + location);
+		System.out.println("\nWELCOME! \nYou have entered " + location);
 		System.out.println("The monster at this location is " + monster);
-		System.out.println(monster + " asks: \n");
+		System.out.println(monster + " asks: ");
 		// Now, call Question class's method getRandomQuestion() to display random question to player.
 	}
 
