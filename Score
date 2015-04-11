@@ -1,0 +1,76 @@
+/**Class: Score.java 
+ * @author dericuspaul 
+ * @version 1.0 <p> 
+ * Course : ITEC 3150 Spring 2015
+ * Written: Mar 30, 2015 
+ * 
+ * 
+ * This class – is the class that sets score properties for the entire game
+ */
+
+public class Score
+{
+	//Attributes
+	public final int MAXSCORE = 300;
+	public final int MINSCORE = 0;
+
+
+	public int score;
+
+	/**
+	 * Score class with No arg constructor
+	 */
+	public Score()
+	{
+		this.score = 0;
+	}
+
+
+	/**
+	 * Method getScore() that gets score for score class
+	 * @return score 
+	 */
+	public int getScore()
+	{
+		return score;
+	}
+
+
+	/**
+	 * Method setScore() with one arg param that sets score
+	 * @param score
+	 */
+	public void setScore(int score)
+	{
+		this.score = score;
+	}
+
+	/**
+	 * Method correct() that includes a if statement that determines
+	 * if the game is won or not
+	 */
+	public void correct()
+	{
+		if (this.score + 10 < MAXSCORE)
+		{
+			this.score += 10;
+		}
+		else
+		{
+
+			System.out.println("You have won the game");
+			//End the game somehow
+		}
+	}
+
+	/**
+	 * Method reset() that resets the score if a question is answered wrong
+	 * three time back to the min score of 0.
+	 */
+	public void reset()
+	{
+		this.score = MINSCORE;
+	}
+
+
+}
