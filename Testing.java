@@ -5,7 +5,6 @@ package test;
 * Course : ITEC 3860 Spring 2015 
 * Written: January 10, 2015 
 * 
-* 
 * This class: use hold answer and question
 * 
 * Purpose:to create the question and answer for the location to use
