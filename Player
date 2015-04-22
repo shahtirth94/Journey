@@ -13,37 +13,25 @@ import java.util.Scanner;
 public class Player
 {
 	//class variables
-	private int wrongCount = 0;
+	private static int wrongCount = 0;
 	private Location currentRoom;
 	private static Scanner stdIn = new Scanner(System.in);
 
 	//Instance variables
-	public String name;
-	public Score score;
-
-
-
-	/**
-	 * No arg Constructor for Player class
-	 */
-	Player()
-	{
-		this.score = new Score();
-		String[] values = Location.playerPicksLocation();
-		this.currentRoom = new Location(values[0], values[1]);
-	}
+	public static String name;
+	public static int score;
+	public static boolean isGameOver = false;
 
 	/**
 	 * Two arg constructor for Player class
 	 * @param name
 	 * @param score
 	 */
-	public Player(String name, Score score)
+	public Player(String name, int score)
 	{
 		super();
 		this.name = name;
 		this.score = score;
-
 	}
 
 
@@ -73,7 +61,7 @@ public class Player
 	 */
 	public int getScore()
 	{
-		return score.getScore();
+		return score;
 	}
 
 
@@ -81,103 +69,121 @@ public class Player
 	 * Method setScore that set player score
 	 * @param score
 	 */
-	public void setScore(int score)
+	public void setScore(int aScore)
 	{
-		this.score.setScore(score);;
-	}
-
-
-	/**
-	 * method wrongAnswer that increments wrong answers to questions
-	 */
-	public void wrongAnswer()
-	{
-		wrongCount++;
-	}
-
-	/**
-	 * Method correctAnswer that tracks correct answers to questions with score
-	 */
-	public void correctAnswer()
-	{
-		score.correct();
-		wrongCount = 0;
+		score = aScore;
 	}
 
 	/**
 	 * Method answerQuestion that controls how questions are answered controlling the score with the 
 	 * choice of questions
 	 */
-	public void answerQuestion()
+	public static void answerQuestion()
 	{
-		//grab location object
-		String l = Location.playerPicksLocation()[1];//grabs the monster name
-		//call presentPickedRoom()
-		//call getQuestion() from monster object
-		//Question q = l.getQuestion();
-		//print out the Question object (should look like multiple choice)
-		//System.out.println(q); // if all goes well in the toString, it should look like multiple choice
+		// Retrieves the question according to what the user picked.
+		String question = Testing.getLocationQuestion(Location.pickedLocationNumber);
+		System.out.println(question);
 
-		boolean inQuestion = true;
-		while (inQuestion)
+		// Splits the question into lines
+		String[] lines = question.split("\n");
+		String questionLine = lines[0];
+
+		// Retrieves the answerID of each answer choice
+		String answer1 = lines[1];
+		String digits1 = "";
+		for(int i = 0; i<=1; i++)
 		{
-
-			System.out.println("Choose the correct letter ('a', 'b', 'c' or 'd')");
-			String choice = stdIn.nextLine().toLowerCase();
-			int answer = 0;
-			if (choice.equals("a"))
+			char c = answer1.charAt(i);
+			if(Character.isDigit(c))
 			{
-				answer = 0;
-			}
-			else if (choice.equals("b"))
-			{
-				answer = 1;
-			}
-			else if (choice.equals("c"))
-			{
-				answer = 2;
-			}
-			else if (choice.equals("d"))
-			{
-				answer = 3;
-			}
-
-			/**if (q.getAnswer().equals(q.getChoices(answer)))
-			{
-				correctAnswer();
-				inQuestion = false;
-				//move to another room if you get the right answer
-			}**/
-			else
-			{
-				wrongAnswer();
-				if (wrongCount > 2)
-				{
-					score.reset();
-					wrongCount = 0;
-					inQuestion = false;
-					//move to the room at the beginning of the game
-				}
+				digits1 += c;
 			}
 		}
+		int answerID1 = Integer.parseInt(digits1);
 
+		String answer2 = lines[2];
+		String digits2 = "";
+		for(int i = 0; i<=1; i++)
+		{
+			char c = answer2.charAt(i);
+			if(Character.isDigit(c))
+			{
+				digits2 += c;
+			}
+		}
+		int answerID2 = Integer.parseInt(digits2);
 
+		String answer3 = lines[3];
+		String digits3 = "";
+		for(int i = 0; i<=1; i++)
+		{
+			char c = answer3.charAt(i);
+			if(Character.isDigit(c))
+			{
+				digits3 += c;
+			}
+		}
+		int answerID3 = Integer.parseInt(digits3);
+
+		String answer4 = lines[4];
+		String digits4 = "";
+		for(int i = 0; i<=1; i++)
+		{
+			char c = answer4.charAt(i);
+			if(Character.isDigit(c))
+			{
+				digits4 += c;
+			}
+		}
+		int answerID4 = Integer.parseInt(digits4);
+
+		// This loop will ask the user to answer for three times or until he gets it correct.
+		boolean isCorrect = false;
+		int count = 0;
+		while(!isCorrect && count < 3)
+		{
+			System.out.println("Choose the correct answer number");
+			String choice = stdIn.nextLine();
+			String trimmedChoice = choice.trim();
+
+			boolean result = false;
+			int pickedAnswer = -1;
+			while(!result)
+			{
+				try
+				{
+					pickedAnswer = Integer.parseInt(trimmedChoice);
+				}
+				catch(Exception exc)
+				{
+				}
+
+				if((pickedAnswer==answerID1 || (pickedAnswer==answerID2) || (pickedAnswer==answerID3) || (pickedAnswer==answerID4)))
+				{
+					result = true;
+				}
+				else
+				{
+					System.out.println("Bad input (" + choice + ") \nEnter one of the answer numbers listed:");
+					choice = stdIn.nextLine();
+					trimmedChoice = choice.trim();
+				}
+			}
+			if(pickedAnswer == (Location.pickedLocationNumber)+1)
+			{
+				System.out.println("CORRECT! +10 pts.");
+				isCorrect = true;
+				score += 10;
+			}
+			else
+			{
+				System.err.println("!!");
+				count++;
+			}
+		}
+		if(count == 3)
+		{
+			isGameOver = true;
+		}
 	}
-
-	/**
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		Player p = new Player();
-		p.answerQuestion();
-	}
-
-
-
-
-
-
-
 }
