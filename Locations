@@ -3,36 +3,38 @@ import java.util.Random;
 import java.util.Scanner; 
 
 /**Class: Location
-* @author Tirth Shah
-* @version 1.0
-* Course : ITEC 3860 Fall 2014
-* Written: 4/9/15
-*
-*
-* This class creates 30 different locations and asks user to pick one out of 3 choices.
-*
-* Purpose: To create 30 Location instances, read user input and let user pick a location; expects input from Question class.
-*/
+ * @author Tirth Shah
+ * @version 1.0
+ * Course : ITEC 3860 Fall 2014
+ * Written: 4/9/15
+ *
+ *
+ * This class creates 30 different locations and asks user to pick one out of 3 choices.
+ *
+ * Purpose: To create 30 Location instances, read user input and let user pick a location; expects input from Question class.
+ */
 public class Location
 {
 	private String locationName;
 	private String monsterName;
-	
+	public static int pickedLocationNumber;
+	private static ArrayList<Integer> usedLocationsList = new ArrayList<Integer>();
+
 	/** Method: Location
 	 * 2-arg constructor that accepts the two instance variables
 	 * @param aLocationName location name to set
 	 * @param aMonsterName monster name to set
-	**/
+	 **/
 	public Location(String aLocationName, String aMonsterName)
 	{
 		locationName = aLocationName;
 		monsterName = aMonsterName;
 	}
-	
+
 	/** Method: getLocationName
 	 * Gets locationName
 	 * @return the name of the location
-	**/
+	 **/
 	public String getLocationName() 
 	{
 		return locationName;
@@ -41,7 +43,7 @@ public class Location
 	/** Method: setLocationName
 	 * Sets locationName
 	 * @param the locationName to set
-	**/
+	 **/
 	public void setLocationName(String locationName) 
 	{
 		this.locationName = locationName;
@@ -50,7 +52,7 @@ public class Location
 	/** Method: getMonsterName
 	 * Gets monsterName
 	 * @return the name of the monster
-	**/
+	 **/
 	public String getMonsterName() 
 	{
 		return monsterName;
@@ -59,20 +61,19 @@ public class Location
 	/** Method: setMonsterName
 	 * Sets monsterName
 	 * @param the monsterName to set
-	**/
+	 **/
 	public void setMonsterName(String monsterName) 
 	{
 		this.monsterName = monsterName;
 	}
-	
+
 	/** Method: playerPicksLocation
 	 * This method lets user pick one of 3 location choices and describes what monster resides there
-	**/
+	 **/
 	public static void playerPicksLocation()
 	{
-		ArrayList<Integer> usedLocationsList = new ArrayList<Integer>();
 		Random random = new Random();
-		
+
 		Location Classroom = new Location("Classroom", "Evil Teacher");
 		Location Restroom = new Location("Restroom", "Zombified Janitor");
 		Location OvalOffice = new Location("Oval Office", "Secret Service agent");
@@ -103,7 +104,7 @@ public class Location
 		Location Warehouse = new Location("Warehouse", "Giant spider");
 		Location Graveyard = new Location("Graveyard", "Zombie");
 		Location Beach = new Location("Beach", "Manshark");
-		
+
 		ArrayList<Location> locationList = new ArrayList<Location>();
 		locationList.add(Classroom);
 		locationList.add(Restroom);
@@ -135,7 +136,7 @@ public class Location
 		locationList.add(Warehouse);
 		locationList.add(Graveyard);
 		locationList.add(Beach);
-		
+
 		int position1 = random.nextInt(locationList.size());
 		int position2 = random.nextInt(locationList.size());
 		int position3 = random.nextInt(locationList.size());
@@ -145,12 +146,19 @@ public class Location
 			position1 = random.nextInt(locationList.size());
 			position2 = random.nextInt(locationList.size());
 			position3 = random.nextInt(locationList.size());
+			if(usedLocationsList.size() >= 28)
+			{
+				break;
+			}
 		}
-		
-		System.out.println("Pick your portal:\n" + position1 + ". " + locationList.get(position1).getLocationName() +"\n"
-				+ position2 + ". " + locationList.get(position2).getLocationName() + "\n"
-				+ position3 + ". " + locationList.get(position3).getLocationName());
-		
+		int one = 1;
+		int two = 2;
+		int three = 3;
+
+		System.out.println("\nPick your portal:\n" + one + ". " + locationList.get(position1).getLocationName() +"\n"
+				+ two + ". " + locationList.get(position2).getLocationName() + "\n"
+				+ three + ". " + locationList.get(position3).getLocationName());
+
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter one of the location numbers: ");
 		String line = input.nextLine();
@@ -166,8 +174,8 @@ public class Location
 			catch(Exception exc)
 			{
 			}
-			
-			if((position1== num || (position2==num) || (position3==num)))
+
+			if((num == one || (num == two) || (num == three)))
 			{
 				result = true;
 			}
@@ -178,22 +186,27 @@ public class Location
 				clearLine = line.trim();
 			}
 		}
-		
-		usedLocationsList.add(num);
-		String location = locationList.get(num).getLocationName();
-		String monster = locationList.get(num).getMonsterName();
+
+		int locationNum = -1;
+		if(num == one)
+		{
+			locationNum = position1;
+		}
+		else if(num == two)
+		{
+			locationNum = position2;
+		}
+		else if(num == three)
+		{
+			locationNum = position3;
+		}
+		usedLocationsList.add(locationNum);
+		String location = locationList.get(locationNum).getLocationName();
+		String monster = locationList.get(locationNum).getMonsterName();
+
 		System.out.println("\nWELCOME! \nYou have entered " + location);
 		System.out.println("The monster at this location is " + monster);
-		System.out.println(monster + " asks: ");
-		// Now, call Question class's method getRandomQuestion() to display random question to player.
-	}
-
-	/** Method: main
-	 * Displays content to user
-	 * @param args
-	**/
-	public static void main(String[] args) 
-	{
-		playerPicksLocation();
+		System.out.println("\n" + monster + " says, ");
+		pickedLocationNumber = locationNum;
 	}
 }
