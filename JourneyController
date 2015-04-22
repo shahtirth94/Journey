@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * @author Tirth Shah
+ *
+ */
+public class JourneyController 
+{
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) 
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.println("Welcome to Journey!\nPlease begin by entering your name:");
+		String name = input.nextLine();
+		Player p1 = new Player(name, 0);
+		System.out.println("You are about to embark on a journey of many locations on Earth and beyond,\nthrough portals...");
+		System.out.println("You will be presented 30 different questions by various monsters at various locations.\n"
+				+ "You will have 3 tries to answer each question before the monster kills you. GOOD LUCK!");
+		for(int i = 0; i < 30; i++)
+		{
+			Location.playerPicksLocation();
+			Player.answerQuestion();
+			if(Player.isGameOver)
+			{
+				System.out.println("\nSorry, GAME OVER.\nThe monster killed you. Try Again!");
+				break;
+			}
+			System.out.println("Current score: " + p1.getScore());
+		}
+		
+	}
+}
