@@ -11,13 +11,13 @@ import javax.swing.Timer;
  */
 public class SimpleGUI extends JPanel implements ActionListener
 {	
-	Timer timer1 = new Timer(3, this);
-	int x = 200, velX = 2;
+	Timer timer1 = new Timer(1, this);
+	int x = 100, velX = 2;
 
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		StarPolygon yellowStar = new StarPolygon(300, 175, x, 100, 5, 0);
+		StarPolygon yellowStar = new StarPolygon(300, 175, x, x/2, 5, 0);
 
 		g.setColor(Color.YELLOW);
 		g.fillPolygon(yellowStar);
@@ -26,7 +26,7 @@ public class SimpleGUI extends JPanel implements ActionListener
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		if(x < 0 || x > 350)
+		if(x < 0 || x > 150)
 			velX = -velX;
 
 		x = x + velX;
